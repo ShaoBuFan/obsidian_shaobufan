@@ -1,0 +1,14 @@
+# Obsidian workspace (personal, changes frequently)
+.obsidian/workspace.json
+.obsidian/workspace/
+
+# Obsidian plugin binaries (reinstallable)
+.obsidian/plugins/
+
+# Obsidian trash
+.trash/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:help.obsidian.md)",
+      "WebFetch(domain:obsidian.md)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(node *)",
+      "WebFetch(domain:csdiy.wiki)",
+      "Skill(obsidian-md)",
+      "Read(//c/Users/17126/.claude/**)",
+      "mcp__filesystem__list_allowed_directories",
+      "mcp__filesystem__read_text_file"
+    ]
+  }
+}

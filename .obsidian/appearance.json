@@ -1,0 +1,13 @@
+{
+  "translucency": false,
+  "accentColor": "",
+  "theme": "obsidian",
+  "nativeMenus": false,
+  "showViewHeader": true,
+  "cssTheme": "",
+  "textFontFamily": "微软雅黑",
+  "interfaceFontFamily": "Consolas",
+  "monospaceFontFamily": "Consolas",
+  "baseFontSize": 18,
+  "showRibbon": true
+}
