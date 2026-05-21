@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(curl --version)",
+      "Bash(sudo apt-get update)",
+      "Bash(sudo apt-get install -y curl)",
+      "Bash(wget --version)"
+    ]
+  }
+}

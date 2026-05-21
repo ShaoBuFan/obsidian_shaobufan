@@ -8,14 +8,16 @@ This is an Obsidian vault for personal knowledge management. It is not a softwar
 
 ## Vault structure
 
-- `重构/` — Study notes for John Ousterhout's *A Philosophy of Software Design* (2nd ed., 22 chapters). Each chapter is a separate `.md` file. This directory has its own `CLAUDE.md` with detailed writing rules.
+- `重构/` — Study notes for John Ousterhout's *A Philosophy of Software Design* (2nd ed., 22 chapters). Each chapter is a `.md` file with YAML frontmatter, tags, internal links, and `==highlights==`. Also contains `闪光点.md` (core insights distilled to 3-line entries per chapter) and `全书结构分析.canvas` (visual map of all 22 chapters with conceptual connections). Has its own `CLAUDE.md` with detailed writing rules.
 - `代码重构哲学/` — Standalone Chinese translation project of the same book (source text, not study notes). Has its own `CLAUDE.md`. Based on [yingang/aposd-zh](https://github.com/yingang/aposd-zh).
-- `CS自学/` — CS self-study roadmap based on [csdiy.wiki](https://csdiy.wiki/). 12 category folders with course indices and learning paths.
+- `CS自学/` — CS self-study roadmap based on [csdiy.wiki](https://csdiy.wiki/). 12 category folders with course indices and learning paths. Current active course: UCB CS61A with progress tracking.
+- `ReactHook/` — React Hooks study course: 8 modules (first principles → building blocks → custom patterns → design process → real-world categories → advanced antipatterns → testing → capstone) + 5 appendices. Teaching method: first principles + Feynman technique + progressive scaffolding.
 - `小说/` — Creative writing drafts.
 - `AttachmentLab/` — Obsidian attachment storage (excluded from search via Obsidian settings).
 - `.obsidian/` — Obsidian configuration (JSON files).
 - `WELLCOME.md` — Vault homepage/entry point.
 - `参考-Obsidian语法.md` — Quick reference for Obsidian Markdown syntax used in this vault.
+- `.claude/skills/obsidian-md/` — Custom `/obsidian-md` skill for enforcing vault conventions during editing.
 
 ## Note-taking conventions (`重构/`)
 
