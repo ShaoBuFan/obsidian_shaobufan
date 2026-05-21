@@ -1,3 +1,9 @@
+---
+tags:
+  - ReactHook
+  - ReactHook/appendix
+created: 2026-05-22
+---
 # 附录 A: 练习参考答案
 
 > **使用说明**：先自己尝试完成练习，再来看答案。先看答案会让你失去"自己推出来"的认知收益。
@@ -187,18 +193,18 @@ function useTimeout(callback, delay) {
 
 ### E8: 识别模式
 
-- **Hook A (useWindowSize)**：Composer（useState + useEffect 组合产生新行为——窗口大小追踪）
-- **Hook B (useHover)**：Extractor（把 hover 逻辑从组件中移出）
-- **Hook C (useShoppingCart)**：Coordinator（多个 state + useMemo + useEffect 协调互动）
+- **Hook A (useWindowSize)**：==Composer==（useState + useEffect 组合产生新行为——窗口大小追踪）
+- **Hook B (useHover)**：==Extractor==（把 hover 逻辑从组件中移出）
+- **Hook C (useShoppingCart)**：==Coordinator==（多个 state + useMemo + useEffect 协调互动）
 
 ### E9: 综合模式匹配
 
 | # | 问题 | 模式 | 理由 |
 |---|------|------|------|
 | 1 | "同步 document.title" | Extractor | 只是把 useEffect 从组件中移出来 |
-| 2 | "useState 管理 boolean 太啰嗦" | Wrapper | 只是换个 API，不添加新行为 |
+| 2 | "useState 管理 boolean 太啰嗦" | ==Wrapper== | 只是换个 API，不添加新行为 |
 | 3 | "表单验证、提交、重置混在一起" | Coordinator | 多个状态需要彼此协调 |
-| 4 | "用户信息分散在 3 个组件" | Facade | 打包成统一服务 |
+| 4 | "用户信息分散在 3 个组件" | ==Facade== | 打包成统一服务 |
 | 5 | "搜索防抖" | Composer | useState + useEffect 组合创造新能力 |
 
 ---

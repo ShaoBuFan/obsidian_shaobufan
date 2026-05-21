@@ -1,3 +1,10 @@
+---
+tags:
+  - ReactHook
+  - ReactHook/real-world
+created: 2026-05-22
+---
+
 # Module 4: 真实场景分类——六步法实战
 
 > **模块目标**：在六大真实场景中反复使用六步设计法，直到每个决策变成肌肉记忆。
@@ -6,7 +13,7 @@
 
 ## R0: 前置检查
 
-1. 默写六步设计法每一步的名称和核心问题。
+1. 默写==六步设计法==每一步的名称和核心问题。
 2. 使用 `useState` 和 `useRef` 的分类标准是什么？
 3. 一个值可以从其他值推导出来，应该用 State 还是直接计算？
 
@@ -94,7 +101,7 @@ function useFetch(url) {
 }
 ```
 
-**原理**：每次 effect 重新执行时，React 先运行上一次的清理函数。清理函数把 `cancelled` 设为 `true`，因此哪怕旧请求最终返回了，`setData` 也不会被调用。
+**原理**：每次 effect 重新执行时，React 先运行上一次的==清理函数==。清理函数把 `cancelled` 设为 `true`，因此哪怕旧请求最终返回了，`setData` 也不会被调用。
 
 #### 问题 2：没有 refetch
 
@@ -147,7 +154,7 @@ function useFetch(url) {
 
 ### 核心挑战
 
-需要获取 DOM 元素引用（`useRef`），设置事件监听（`useEffect`），并且**在 JavaScript 闭包中一直拿到最新值**。
+需要获取 DOM 元素引用（`useRef`），设置事件监听（`useEffect`），并且**在 JavaScript ==闭包==中一直拿到最新值**。
 
 ### 解剖 useEventListener
 
@@ -268,7 +275,7 @@ function useGeolocation(options = {}) {
 
 ### 核心挑战
 
-表单是 Coordinator 模式的典型应用。需要管理多个字段、验证逻辑、提交状态和错误展示之间的协调。
+表单是 ==Coordinator== 模式的典型应用。需要管理多个字段、验证逻辑、提交状态和错误展示之间的协调。
 
 我们在 Module 2 已看到基本版本的 `useForm`。这里重点讨论一个更深入的模式。
 
@@ -310,7 +317,7 @@ const { register, handleSubmit } = useForm();
 
 ### 解剖 useInterval
 
-`setInterval` 的最常见陷阱是**过期闭包**：
+`setInterval` 的最常见陷阱是**==过期闭包==**：
 
 ```javascript
 // 错误的 useInterval

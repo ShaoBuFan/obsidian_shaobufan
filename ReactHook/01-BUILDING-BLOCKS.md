@@ -1,3 +1,10 @@
+---
+tags:
+  - ReactHook
+  - ReactHook/building-blocks
+created: 2026-05-22
+---
+
 # Module 1: 内置 Hook 深度剖析——从 API 到选择直觉
 
 > **模块目标**：对每个内置 Hook 建立准确的"场景→选择"直觉，知道在什么情况下该用哪个 Hook。
@@ -9,7 +16,7 @@
 1. React 用什么数据结构存储 Hook 的状态？
 2. 为什么 Hook 的调用顺序必须一致？
 3. 自定义 Hook 在运行时和普通函数有什么本质区别？
-4. 闭包是如何让 Hook 在多次渲染之间"记住"值的？
+4. ==闭包==是如何让 Hook 在多次渲染之间"记住"值的？
 
 （如果不能流畅回答，回 Module 0 复习）
 
@@ -23,17 +30,17 @@ React 内置了这些 Hook。先对它们有一个整体印象：
 ┌─────────────────────────────────────────────────────┐
 │                    React Hooks                       │
 ├───────────────┬─────────────────────────────────────┤
-│ 数据         │ useState, useReducer                 │
+│ 数据         │ ==useState==, ==useReducer==                 │
 ├───────────────┼─────────────────────────────────────┤
-│ 副作用       │ useEffect, useLayoutEffect           │
+│ ==副作用==       │ ==useEffect==, ==useLayoutEffect==           │
 ├───────────────┼─────────────────────────────────────┤
-│ 引用         │ useRef, useImperativeHandle            │
+│ 引用         │ ==useRef==, ==useImperativeHandle==            │
 ├───────────────┼─────────────────────────────────────┤
-│ 记忆化       │ useMemo, useCallback                 │
+│ ==记忆化==       │ ==useMemo==, ==useCallback==                 │
 ├───────────────┼─────────────────────────────────────┤
-│ 上下文       │ useContext                            │
+│ 上下文       │ ==useContext==                            │
 ├───────────────┼─────────────────────────────────────┤
-│ 调试/工具    │ useDebugValue, useId, useDeferredValue │
+│ 调试/工具    │ ==useDebugValue==, ==useId==, ==useDeferredValue== │
 └───────────────┴─────────────────────────────────────┘
 ```
 
@@ -69,7 +76,7 @@ const [value, setValue] = useState(initialValue);
 
 ### 关键细节
 
-**懒初始化**：如果初始值计算很昂贵，传一个函数：
+**==懒初始化==**：如果初始值计算很昂贵，传一个函数：
 
 ```javascript
 // 不好：每次渲染都执行一次读取（虽然只有第一次的结果被使用）
@@ -79,7 +86,7 @@ const [data, setData] = useState(readFromLocalStorage('key'));
 const [data, setData] = useState(() => readFromLocalStorage('key'));
 ```
 
-**函数式更新**：当新值依赖旧值时，用函数形式：
+**==函数式更新==**：当新值依赖旧值时，用函数形式：
 
 ```javascript
 // 有风险：如果 count 在闭包中是旧值
@@ -89,7 +96,7 @@ setCount(count + 1);
 setCount(prev => prev + 1);
 ```
 
-这两者的区别在 Module 5（过期闭包）中会深入探讨。
+这两者的区别在 Module 5（==过期闭包==）中会深入探讨。
 
 ### ⚡ 费曼检查 T1
 
@@ -114,7 +121,7 @@ useEffect(() => {
 
 ### 类比
 
-**画干之后做家务**。React 先把屏幕画好（paint），然后执行你的 effect。如果 effect 里需要打扫上一次的遗留（比如移除旧的事件监听），就从 effect 里返回一个清理函数。
+**画完之后做家务**。React 先把屏幕画好（paint），然后执行你的 effect。如果 effect 里需要打扫上一次的遗留（比如移除旧的事件监听），就从 effect 里返回一个清理函数。
 
 ### 执行时机
 
@@ -141,7 +148,7 @@ useEffect(() => {
 
 ### 依赖数组
 
-React 用 `Object.is()` 比较依赖数组的每一项：
+React 用 `Object.is()` 比较==依赖数组==的每一项：
 
 ```javascript
 useEffect(() => {
@@ -166,7 +173,7 @@ useEffect(() => {
 }, []); // 只在挂载时添加，卸载时移除
 ```
 
-**注意**：清理函数不仅在组件卸载时执行，也在**每次 effect 重新执行之前**执行。
+**注意**：==清理函数==不仅在组件卸载时执行，也在**每次 effect 重新执行之前**执行。
 
 ```
 挂载：    setup()
@@ -201,7 +208,7 @@ const ref = useRef(initialValue);
 | | useState | useRef |
 |---|---|---|
 | 值改变触发重渲染？ | 是 | 否 |
-| 值在渲染中是最新的？ | 是 | 是（但如果是直接修改，渲染不会自动看到更新） |
+| 值在渲染中是最新的？ | 是 | 是（修改 ref.current 不会触发渲染，但下次渲染时读到的是最新值） |
 | 修改方式 | `setState(newVal)` | `ref.current = newVal` |
 | 用途 | UI 需要反映的数据 | 渲染不需要反映的数据 |
 
@@ -315,6 +322,7 @@ const memoizedValue = useMemo(() => expensiveComputation(a, b), [a, b]);
 
 - 计算很快（简单加减、字符串拼接）→ 直接算，`useMemo` 自己也有开销
 - 计算结果需要作为其他组件的 prop 且该组件用了 `React.memo` → 用 `useMemo` 保持引用稳定
+- 在加 `useMemo` 之前，先考虑结构上的替代方案：把状态下沉到子组件（减少父组件重渲染波及范围），或用 `children` prop 传递不变内容——这两种方式通常比记忆化更干净（见 Dan Abramov: "Before You memo()"）
 
 ### 注意
 
@@ -382,7 +390,7 @@ function reducer(state, action) {
 
 1. **下一状态依赖上一状态且逻辑复杂**：如果你的 `setState(prev => ...)` 已经有了多层嵌套逻辑
 2. **多个 state 总是一起更新**：比如表单的多个字段
-3. **需要测试状态转换逻辑**：reducer 是纯函数，可以脱离 React 单独测试
+3. **需要测试状态转换逻辑**：reducer 是==纯函数==，可以脱离 React 单独测试
 4. **状态更新有明确的"动作类型"**：如 `FETCH_START`, `FETCH_SUCCESS`, `FETCH_ERROR`
 
 ### 练习 E4：useState 转 useReducer

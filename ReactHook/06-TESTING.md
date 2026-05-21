@@ -1,3 +1,9 @@
+---
+tags:
+  - ReactHook
+  - ReactHook/testing
+created: 2026-05-22
+---
 # Module 6: Hook 测试——验证设计的正确性
 
 > **模块目标**：学会用 `renderHook` 和 `act` 对自定义 Hook 进行行为测试。测试是验证设计的最强工具。
@@ -7,7 +13,7 @@
 ## R0: 前置检查
 
 1. `useEffect` 的清理函数在什么时机执行？
-2. 什么是过期闭包？如何在测试中验证一个 Hook 没有过期闭包问题？
+2. 什么是==过期闭包==？如何在测试中验证一个 Hook 没有过期闭包问题？
 3. 竞态条件（race condition）在数据获取 Hook 中如何产生？
 
 ---
@@ -16,13 +22,26 @@
 
 > "测试一个 Hook 就像碰撞测试一辆车。你不关心引擎内部怎么运作，你关心的是——踩油门，车往前走；踩刹车，车停下来。"
 
-Hook 测试是**行为测试**：测试 Hook 对外暴露的 API 在特定操作下是否产生预期行为。你不测试内部实现细节（用了几个 `useState`、有没有 `useEffect`）。
+Hook 测试是**==行为测试==**：测试 Hook 对外暴露的 API 在特定操作下是否产生预期行为。你不测试内部实现细节（用了几个 `useState`、有没有 `useEffect`）。
+
+### 一个重要的前置判断：你该直接测试 Hook 吗？
+
+在投入 `renderHook` 之前，先回答一个问题：**这个 Hook 只被一个组件使用，还是会被多个组件/项目复用？**
+
+Kent C. Dodds（React Testing Library 作者）的观点是：**大多数情况下，自定义 Hook 不应该被直接测试。** Hook 是组件的实现细节，通过测试使用它的组件来间接覆盖 Hook 的行为，测试更贴近用户行为，也更抗重构。
+
+直接测试 Hook 的场景：
+- 你在构建一个 **Hook 库**（如 react-use、TanStack Query），Hook 本身就是产品
+- Hook 的**逻辑足够复杂**，通过组件测试难以穷举所有状态组合
+- Hook 被**多个组件共享**，且你希望测试独立于任何一个具体组件
+
+本模块教 `renderHook` 是因为这门课的目标是**设计 Hook**——你需要独立验证 Hook 在不同输入下的行为。但在实际项目中，优先考虑通过组件测试来覆盖 Hook。
 
 ### 好的测试回答这些问题
 
 - 初始状态正确吗？
 - 调用返回的操作函数后，状态正确更新了吗？
-- 副作用正确执行和清理了吗？
+- ==副作用==正确执行和==清理==了吗？
 - 边界情况处理了吗？
 
 ---
@@ -57,6 +76,45 @@ act(() => {
 ### 为什么需要 act？
 
 React 的状态更新是异步的（批量更新）。如果你在 `act` 外面调用 `setState`，然后立即读取 `result.current`，你可能读到**更新前**的值。`act` 确保你读到的是更新后的值。
+
+### ⚠ 关键警告：永远不要解构 `result.current`
+
+```javascript
+// 错误！解构捕获的是初始值，后续更新不会反映
+const { result } = renderHook(() => useCounter(0));
+const { count, increment } = result.current;  // count = 0，永远不变
+act(() => { increment(); });
+console.log(count);  // 还是 0！
+
+// 正确：每次通过 result.current 读取最新值
+const { result } = renderHook(() => useCounter(0));
+act(() => { result.current.increment(); });
+console.log(result.current.count);  // 1
+```
+
+`result` 是一个可变引用（类似 `useRef`），renderHook 在每次重渲染后更新 `result.current`。解构会捕获创建时那一瞬间的值——之后 `result.current` 更新了，但被解构出来的变量不会变。
+
+### waitFor：替代手动 setTimeout
+
+测试异步 Hook 时，比起 `await act(async () => { await new Promise(r => setTimeout(r, 0)); })`，更好的做法是用 `waitFor`：
+
+```javascript
+import { renderHook, waitFor } from '@testing-library/react';
+
+const { result } = renderHook(() => useFetch('/api/user'));
+
+await waitFor(() => {
+  expect(result.current.loading).toBe(false);
+});
+// 现在可以安全断言 data 和 error
+expect(result.current.data).toEqual({ name: 'Alice' });
+```
+
+`waitFor` 会不断重试回调直到断言通过或超时，比手动刷新 Promise 队列更稳健。
+
+### 关于 `@testing-library/react-hooks`
+
+如果你在一些老项目中看到 `import { renderHook } from '@testing-library/react-hooks'`，注意：**React 18 起，`renderHook` 已内置在 `@testing-library/react` 中。** 独立包 `@testing-library/react-hooks` 已废弃。本模块所有示例使用 `@testing-library/react`。
 
 ---
 
@@ -152,7 +210,7 @@ function useToggle(initialValue = false) {
 
 ### 挑战
 
-副作用型 Hook 不与外部 API 交互时很难直接验证（比如 `useDocumentTitle` 改变了 `document.title`）。与其 mock `document.title`，不如**直接读取副作用的结果**。
+副作用型 Hook 不与外部 API 交互时很难直接验证（比如 `useDocumentTitle` 改变了 `document.title`）。与其 ==mock== `document.title`，不如**直接读取副作用的结果**。
 
 ### 示例：测试 useDebounce
 
@@ -169,7 +227,7 @@ function useDebounce(value, delay) {
 }
 ```
 
-测试需要处理异步时间：
+测试需要处理==异步==时间：
 
 ```javascript
 import { renderHook, act } from '@testing-library/react';
@@ -249,6 +307,9 @@ describe('useDebounce', () => {
 ### 示例：测试 useFetch
 
 ```javascript
+import { renderHook, waitFor } from '@testing-library/react';
+import { useFetch } from './useFetch';
+
 describe('useFetch', () => {
   beforeEach(() => {
     global.fetch = jest.fn();
@@ -274,13 +335,11 @@ describe('useFetch', () => {
 
     const { result } = renderHook(() => useFetch('/api/user'));
 
-    // 等待异步 effect 完成
-    await act(async () => {
-      // flush promises
-      await new Promise(resolve => setTimeout(resolve, 0));
+    // waitFor 自动重试直到 loading 变为 false
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.loading).toBe(false);
     expect(result.current.data).toEqual({ name: 'Alice' });
     expect(result.current.error).toBe(null);
   });
@@ -294,11 +353,10 @@ describe('useFetch', () => {
 
     const { result } = renderHook(() => useFetch('/api/missing'));
 
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.loading).toBe(false);
     expect(result.current.error).toBeTruthy();
     expect(result.current.data).toBe(null);
   });
@@ -310,17 +368,16 @@ describe('useFetch', () => {
 
     const { result } = renderHook(() => useFetch('/api/data'));
 
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
     });
     expect(result.current.data).toEqual({ v: 1 });
 
     // 手动 refetch
-    await act(async () => {
-      result.current.refetch();
-      await new Promise(resolve => setTimeout(resolve, 0));
+    act(() => { result.current.refetch(); });
+    await waitFor(() => {
+      expect(result.current.data).toEqual({ v: 2 });
     });
-    expect(result.current.data).toEqual({ v: 2 });
   });
 });
 ```
@@ -427,9 +484,9 @@ it('decrement 使 count 减 1', () => { ... });
 it('reset 恢复 count 到初始值', () => { ... });
 ```
 
-### 异步操作用 async act
+### 异步操作用 waitFor
 
-任何会导致异步状态更新的操作都应该包裹在 `async act` 中并刷新 Promise 队列。
+异步状态更新用 `waitFor`，避免手动刷新 Promise 队列。只在需要精确控制时间的情况下使用 fake timers + `act`。
 
 ### ⚡ 费曼检查 T2
 
@@ -464,7 +521,7 @@ it('reset 恢复 count 到初始值', () => { ... });
 
 **完成 Module 6 后**，你应该能：
 - 用 `renderHook` 和 `act` 测试任何自定义 Hook
-- 区分行为测试和实现测试
+- 区分行为测试和==实现测试==
 - 用 fake timer 测试时间相关的 Hook
 - 用 mock fetch 测试异步数据获取 Hook
 - 验证清理逻辑

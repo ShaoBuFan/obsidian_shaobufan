@@ -1,3 +1,11 @@
+---
+tags:
+  - ReactHook
+  - ReactHook/custom-patterns
+  - ReactHook/patterns
+created: 2026-05-22
+---
+
 # Module 2: 自定义 Hook 的五大模式——设计的词汇表
 
 > **模块目标**：建立识别和应用五种基本自定义 Hook 模式的能力。这是从"读懂 Hook"到"设计 Hook"的桥梁。
@@ -8,7 +16,7 @@
 
 1. 自定义 Hook 在运行时和组件函数有什么区别？
 2. 自定义 Hook 中调用的 `useState` 在 Fiber 链表上属于谁？
-3. `useEffect` 的清理函数在什么时机会执行？
+3. `useEffect` 的 ==清理函数==在什么时机会执行？
 4. `useCallback` 和 `useMemo` 的区别是什么？
 
 ---
@@ -62,11 +70,11 @@ React 运行时完全不知道你的函数叫 `useFormInput` 还是 `useSomethin
 
 | 模式 | 核心操作 | 典型例子 | 类比 |
 |------|----------|----------|------|
-| Wrapper | 包装一个内置 Hook，简化 API | `useToggle` 包装 `useState` | "老规矩，一杯拿铁"代替每次都念配方 |
-| Composer | 组合多个 Hook 产生新行为 | `useDebounce` = `useState` + `useEffect` | 食谱：面粉+鸡蛋+糖 = 蛋糕 |
-| Extractor | 把逻辑从组件里移出去 | `useDocumentTitle` 提取 `useEffect` | 整理桌子，把东西分类放进文件夹 |
-| Facade | 多个 Hook 打包成统一接口 | `useAuth` 封装登录/登出/状态 | 电视遥控器，隐藏复杂的电路 |
-| Coordinator | 管理多个 Hook 之间的互动 | `useForm` 协调字段、验证、提交 | 十字路口的交通指挥员 |
+| ==Wrapper== | 包装一个内置 Hook，简化 API | `useToggle` 包装 `useState` | "老规矩，一杯拿铁"代替每次都念配方 |
+| ==Composer== | 组合多个 Hook 产生新行为 | `useDebounce` = `useState` + `useEffect` | 食谱：面粉+鸡蛋+糖 = 蛋糕 |
+| ==Extractor== | 把逻辑从组件里移出去 | `useDocumentTitle` 提取 `useEffect` | 整理桌子，把东西分类放进文件夹 |
+| ==Facade== | 多个 Hook 打包成统一接口 | `useAuth` 封装登录/登出/状态 | 电视遥控器，隐藏复杂的电路 |
+| ==Coordinator== | 管理多个 Hook 之间的互动 | `useForm` ==协调==字段、验证、提交 | 十字路口的交通指挥员 |
 
 ---
 
@@ -709,6 +717,23 @@ function useFetch(url) {
 **分析它的"血统"：**
 - **Facade**：把 data/loading/error 三个 state + fetch 逻辑打包成一个"数据获取服务"
 - **Composer**：`useState` × 3 + `useCallback` + `useEffect` 组合产生数据获取能力
+
+### Extractor vs Facade：判据是"提取单项逻辑"还是"打包多项服务"
+
+Extractor 和 Facade 都可能在内部使用多个 Hook，这让两者的边界偶尔模糊。区分它们的关键不在于"内部用了几个 Hook"，而在于**对调用者而言，这个 Hook 做的是几件事**：
+
+| | Extractor | Facade |
+|---|---|---|
+| **动机** | 组件太臃肿，把一项逻辑移出去 | 多项相关逻辑分散，打包成统一入口 |
+| **调用者感知** | "我调用这个 Hook 来完成一件事" | "我调用这个 Hook 来使用一组服务" |
+| **内部复杂度** | 可能高（如 `useEventListener` 用了 `useRef` × 2 + `useEffect` × 2），但全为一个目的服务 | 内部每一项都可以是一个独立的小 Hook |
+| **返回值** | 通常简单（无返回值、或一个值） | 通常返回对象，包含多个值和操作方法 |
+
+`useEventListener(element, 'click', handler)` 内部虽然用了多个 `useRef` 和 `useEffect`，但调用者只关心一件事：监听事件。它是一条完整的逻辑，提取出来是为了让组件不臃肿——这是 Extractor。
+
+`useAuth()` 返回 `{ user, loading, error, login, logout }`，调用者面对的是一个**服务**，包含状态查询和操作方法。内部每一项（user 状态、loading 状态、login/logout 操作）可以拆成独立的 Hook——但 Facade 把它们打包的原因是它们**总是一起出现**，分开管理反而增加心智负担。
+
+**边界案例判断**：一个 Hook 是 Extractor 还是 Facade，问自己——"如果我把这个 Hook 的内部拆成两个独立的 Hook，调用者会觉得奇怪吗？"。如果拆开之后调用者需要在组件里分别调用它们并手动对接返回值，那它们应该作为 Facade 保持一体；如果拆开之后调用者要写两行不相关的调用、而且这两行没有共享状态，那它们本来是独立的提取，只是恰好放在了同一个 Hook 里。
 
 ---
 
