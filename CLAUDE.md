@@ -8,10 +8,13 @@ This is an Obsidian vault for personal knowledge management. It is not a softwar
 
 ## Vault structure
 
-- `重构/` — Study notes for John Ousterhout's *A Philosophy of Software Design* (2nd ed., 22 chapters). Each chapter is a `.md` file with YAML frontmatter, tags, internal links, and `==highlights==`. Also contains `闪光点.md` (core insights distilled to 3-line entries per chapter) and `全书结构分析.canvas` (visual map of all 22 chapters with conceptual connections). Has its own `CLAUDE.md` with detailed writing rules.
-- `代码重构哲学/` — Standalone Chinese translation project of the same book (source text, not study notes). Has its own `CLAUDE.md`. Based on [yingang/aposd-zh](https://github.com/yingang/aposd-zh).
+- `代码重构哲学/` — Two related subdirectories for John Ousterhout's *A Philosophy of Software Design* (2nd ed., 22 chapters):
+  - `讲义/` — Study notes. Each chapter is a `.md` file with YAML frontmatter, tags, internal links, and `==highlights==`. Also contains `闪光点.md` (core insights distilled to 3-line entries per chapter) and `全书结构分析.canvas` (visual map). Has its own `CLAUDE.md` with detailed writing rules.
+  - `课本/` — Standalone Chinese translation source text (based on [yingang/aposd-zh](https://github.com/yingang/aposd-zh)). Plain Markdown chapters (`ch01.md`–`ch22.md`) plus `preface.md` and `summary.md`.
+- `React/` — Two React courses:
+  - `ReactHook/` — 8-module course teaching Hook design from first principles to capstone, plus 5 appendices (exercise solutions, quick reference, Feynman checklist, design workbook, closures primer).
+  - `ReactFromHook/` — 10-chapter course on react-hook-form: from first principles through real-world patterns (Zod integration, MUI/Ant Design, useFieldArray, FormProvider).
 - `CS自学/` — CS self-study roadmap based on [csdiy.wiki](https://csdiy.wiki/). 12 category folders with course indices and learning paths. Current active course: UCB CS61A with progress tracking.
-- `ReactHook/` — React Hooks study course: 8 modules (first principles → building blocks → custom patterns → design process → real-world categories → advanced antipatterns → testing → capstone) + 5 appendices. Teaching method: first principles + Feynman technique + progressive scaffolding.
 - `小说/` — Creative writing drafts.
 - `AttachmentLab/` — Obsidian attachment storage (excluded from search via Obsidian settings).
 - `.obsidian/` — Obsidian configuration (JSON files).
@@ -19,15 +22,15 @@ This is an Obsidian vault for personal knowledge management. It is not a softwar
 - `参考-Obsidian语法.md` — Quick reference for Obsidian Markdown syntax used in this vault.
 - `.claude/skills/obsidian-md/` — Custom `/obsidian-md` skill for enforcing vault conventions during editing.
 
-## Note-taking conventions (`重构/`)
+## Note-taking conventions (`代码重构哲学/讲义/`)
 
-When writing or editing chapter notes under `重构/`, follow the rules in `重构/CLAUDE.md`:
+When writing or editing chapter notes under `代码重构哲学/讲义/`, follow the rules in `代码重构哲学/讲义/CLAUDE.md`:
 
 - Feynman technique, first principles, and design philosophy are **fused into one coherent narrative** — never sectioned by methodology.
 - Core ideas and practical tips use `>` blockquotes.
 - Written in Chinese. Each chapter ends with thought questions (思考题).
 - No emoji.
-- `重构/闪光点.md` holds distilled insights: each entry is exactly three lines (fundamental constraint / one-sentence summary / most critical insight).
+- `代码重构哲学/讲义/闪光点.md` holds distilled insights: each entry is exactly three lines (fundamental constraint / one-sentence summary / most critical insight).
 
 ## Key rules for research
 
