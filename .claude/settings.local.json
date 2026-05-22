@@ -11,7 +11,8 @@
       "Skill(obsidian-md)",
       "Read(//c/Users/17126/.claude/**)",
       "mcp__filesystem__list_allowed_directories",
-      "mcp__filesystem__read_text_file"
+      "mcp__filesystem__read_text_file",
+      "WebFetch(domain:react-hook-form.com)"
     ]
   }
 }
