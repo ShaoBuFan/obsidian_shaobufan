@@ -23,7 +23,8 @@
   "showIndentGuide": true,
   "showUnsupportedFiles": true,
   "userIgnoreFilters": [
-    "AttachmentLab/"
+    "AttachmentLab/",
+    "React/ReactTest/reference-projects/"
   ],
   "newLinkFormat": "relative"
 }

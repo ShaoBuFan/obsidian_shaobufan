@@ -12,7 +12,23 @@
       "Read(//c/Users/17126/.claude/**)",
       "mcp__filesystem__list_allowed_directories",
       "mcp__filesystem__read_text_file",
-      "WebFetch(domain:react-hook-form.com)"
+      "WebFetch(domain:react-hook-form.com)",
+      "Bash(git clone *)",
+      "Bash(git config *)",
+      "Bash(env)",
+      "Bash(git -c http.proxy= -c https.proxy= clone --depth 1 https://github.com/alan2207/bulletproof-react.git)",
+      "Bash(git ls-remote *)",
+      "Bash(nslookup github.com)",
+      "WebFetch(domain:www.bilibili.com)",
+      "WebFetch(domain:blog.csdn.net)",
+      "WebFetch(domain:mp.weixin.qq.com)",
+      "WebFetch(domain:www.360doc.com)",
+      "WebFetch(domain:cloud.tencent.cn)",
+      "WebFetch(domain:www.cnblogs.com)",
+      "WebFetch(domain:www.doc88.com)",
+      "WebFetch(domain:www.markji.com)",
+      "WebFetch(domain:m.bilibili.com)",
+      "WebFetch(domain:cloud.tencent.com)"
     ]
   }
 }
