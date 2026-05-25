@@ -28,7 +28,11 @@
       "WebFetch(domain:www.doc88.com)",
       "WebFetch(domain:www.markji.com)",
       "WebFetch(domain:m.bilibili.com)",
-      "WebFetch(domain:cloud.tencent.com)"
+      "WebFetch(domain:cloud.tencent.com)",
+      "Bash(pip3 list *)",
+      "Bash(pip3 install *)",
+      "WebFetch(domain:arxiv.org)",
+      "Bash(pdftotext *)"
     ]
   }
 }
