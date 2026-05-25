@@ -29,7 +29,8 @@ def main():
 
     print(f"Connecting to ChromaDB: {DB_PATH}")
     client = chromadb.PersistentClient(path=DB_PATH)
-    collection = client.get_or_create_collection(COLLECTION_NAME)
+    collection = client.get_or_create_collection(
+        COLLECTION_NAME, metadata={"hnsw:space": "cosine"})
 
     where = None if args.type == "all" else {"type": args.type}
 

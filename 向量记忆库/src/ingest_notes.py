@@ -103,10 +103,10 @@ def detect_changes(file_list: list[str]) -> tuple[list[str], list[str]]:
     return changed, deleted
 
 
-def extract_title(text: str) -> str:
-    """提取 # 标题"""
+def extract_title(filepath: str, text: str) -> str:
+    """提取 # 标题，fallback 到文件名"""
     m = re.search(r"^#\s+(.+)", text, re.MULTILINE)
-    return m.group(1) if m else os.path.basename
+    return m.group(1) if m else os.path.basename(filepath)
 
 
 def extract_tags(text: str) -> str:
@@ -128,7 +128,7 @@ def ingest_file(filepath: str, collection, model) -> int:
         raw = f.read()
 
     text = strip_frontmatter(raw)
-    title = extract_title(text)
+    title = extract_title(filepath, text)
     file_tags = extract_tags(raw)
     chunks = chunk_by_boundary(text)
     f_md5 = file_md5(filepath)
@@ -163,7 +163,8 @@ def main():
 
     print(f"Connecting to ChromaDB: {DB_PATH}")
     client = chromadb.PersistentClient(path=DB_PATH)
-    collection = client.get_or_create_collection(COLLECTION_NAME)
+    collection = client.get_or_create_collection(
+        COLLECTION_NAME, metadata={"hnsw:space": "cosine"})
 
     # 收集文件
     md_files = [str(p) for p in Path(source_dir).glob("*.md")
