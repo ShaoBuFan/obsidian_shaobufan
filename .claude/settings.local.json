@@ -32,7 +32,12 @@
       "Bash(pip3 list *)",
       "Bash(pip3 install *)",
       "WebFetch(domain:arxiv.org)",
-      "Bash(pdftotext *)"
+      "Bash(pdftotext *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(ssh-keygen *)"
     ]
   }
 }
