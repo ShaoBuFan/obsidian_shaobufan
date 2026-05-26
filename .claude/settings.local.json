@@ -37,7 +37,9 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(ssh -T git@github.com)",
-      "Bash(ssh-keygen *)"
+      "Bash(ssh-keygen *)",
+      "WebFetch(domain:platform.openai.com)",
+      "WebFetch(domain:docs.anthropic.com)"
     ]
   }
 }
