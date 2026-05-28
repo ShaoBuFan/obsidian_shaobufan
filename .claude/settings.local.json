@@ -39,7 +39,31 @@
       "Bash(ssh -T git@github.com)",
       "Bash(ssh-keygen *)",
       "WebFetch(domain:platform.openai.com)",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:www.bbc.com)",
+      "WebFetch(domain:deepwiki.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:plink.anyfeeder.com)",
+      "WebFetch(domain:www.ithome.com)",
+      "WebFetch(domain:36kr.com)",
+      "WebFetch(domain:www.huxiu.com)",
+      "WebFetch(domain:www.solidot.org)",
+      "WebFetch(domain:www.ifanr.com)",
+      "WebFetch(domain:www.gcores.com)",
+      "WebFetch(domain:www.yystv.cn)",
+      "WebFetch(domain:www.chuapp.com)",
+      "WebFetch(domain:rsshub.app)",
+      "WebFetch(domain:feeds.bbci.co.uk)",
+      "WebFetch(domain:feeds.npr.org)",
+      "WebFetch(domain:www.theguardian.com)",
+      "WebFetch(domain:techcrunch.com)",
+      "WebFetch(domain:feeds.arstechnica.com)",
+      "WebFetch(domain:www.theverge.com)",
+      "WebFetch(domain:www.wired.com)",
+      "WebFetch(domain:www.espn.com)",
+      "WebFetch(domain:www.theatlantic.com)",
+      "WebFetch(domain:variety.com)"
     ]
   }
 }

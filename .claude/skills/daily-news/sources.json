@@ -1,0 +1,190 @@
+{
+  "sections": {
+    "要闻": {
+      "_note": "要闻是跨栏目精选集，不从独立源抓取。fallback_search 仅在其他7个栏目全部产量 < 2 条时作为最后备用。",
+      "fallback_search": "今日要闻 头条新闻 breaking news today"
+    },
+    "国际": {
+      "direct_feeds": [
+        "http://www.bbc.com/zhongwen/simp/index.xml",
+        "http://feeds.bbci.co.uk/news/world/rss.xml",
+        "https://feeds.npr.org/1001/rss.xml",
+        "https://www.theguardian.com/world/rss"
+      ],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/reuters/cn",
+        "https://plink.anyfeeder.com/zaobao/realtime/world",
+        "https://plink.anyfeeder.com/nytimes/cn",
+        "https://plink.anyfeeder.com/rfi/cn"
+      ],
+      "prefer_domains": [
+        "bbc.com",
+        "bbc.co.uk",
+        "reuters.com",
+        "npr.org",
+        "theguardian.com",
+        "nytimes.com",
+        "rfi.fr",
+        "zaobao.com.sg",
+        "dw.com",
+        "apnews.com",
+        "aljazeera.com"
+      ],
+      "fallback_search": "world news today international affairs"
+    },
+    "国内": {
+      "direct_feeds": [],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/zaobao/realtime/china",
+        "https://plink.anyfeeder.com/people/politics",
+        "https://plink.anyfeeder.com/infzm/news",
+        "https://plink.anyfeeder.com/weixin/banyuetan-weixin",
+        "https://plink.anyfeeder.com/bjnews"
+      ],
+      "prefer_domains": [
+        "xinhuanet.com",
+        "people.com.cn",
+        "infzm.com",
+        "bjnews.com.cn",
+        "thepaper.cn",
+        "gov.cn",
+        "bbc.com",
+        "reuters.com",
+        "zaobao.com.sg",
+        "theguardian.com"
+      ],
+      "fallback_search": "国内新闻 今日中国 China news today"
+    },
+    "财经": {
+      "_note": "财经栏目以 WebSearch 为主要发现手段。Bloomberg/FT/WSJ 有 paywall，优先从 caixin.com、wallstreetcn.com、cnbc.com 等可访问域名获取内容。",
+      "direct_feeds": [],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/weixin/wallstreetcn",
+        "https://plink.anyfeeder.com/weixin/caixinwang",
+        "https://plink.anyfeeder.com/jiemian/finance"
+      ],
+      "prefer_domains": [
+        "caixin.com",
+        "wallstreetcn.com",
+        "yicai.com",
+        "21jingji.com",
+        "jiemian.com",
+        "cls.cn",
+        "cnbc.com",
+        "bloomberg.com",
+        "ft.com",
+        "wsj.com",
+        "economist.com",
+        "reuters.com"
+      ],
+      "fallback_search": "财经新闻 金融市场 today financial markets economy"
+    },
+    "科技与科学": {
+      "_note": "不仅覆盖 IT/AI，也包括基础科学突破、医学研究、气候变化、航天等。英文源占一半以上以保证全球视野。",
+      "direct_feeds": [
+        "https://www.ithome.com/rss/",
+        "https://www.solidot.org/index.rss",
+        "https://36kr.com/feed",
+        "https://www.huxiu.com/rss/0.xml",
+        "https://www.ifanr.com/feed",
+        "https://techcrunch.com/feed/",
+        "https://feeds.arstechnica.com/arstechnica/index",
+        "https://www.theverge.com/rss/index.xml",
+        "https://www.wired.com/feed/rss"
+      ],
+      "discovery_feeds": [],
+      "prefer_domains": [
+        "ithome.com",
+        "solidot.org",
+        "36kr.com",
+        "huxiu.com",
+        "ifanr.com",
+        "techcrunch.com",
+        "arstechnica.com",
+        "theverge.com",
+        "wired.com",
+        "nature.com",
+        "science.org",
+        "sciencedaily.com",
+        "newscientist.com",
+        "space.com",
+        "statnews.com"
+      ],
+      "fallback_search": "科技新闻 AI 人工智能 科学突破 医学研究 气候变化 science technology health"
+    },
+    "文化": {
+      "direct_feeds": [
+        "https://www.theatlantic.com/feed/all/"
+      ],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/weixin/lifeweek",
+        "https://plink.anyfeeder.com/weixin/ibookreview",
+        "https://plink.anyfeeder.com/weixin/gjrwls",
+        "https://plink.anyfeeder.com/weixin/renwumag1980",
+        "https://plink.anyfeeder.com/weixin/ikanlixiang"
+      ],
+      "prefer_domains": [
+        "lifeweek.com.cn",
+        "thepaper.cn",
+        "infzm.com",
+        "douban.com",
+        "theatlantic.com",
+        "newyorker.com",
+        "theguardian.com",
+        "lrb.co.uk",
+        "nybooks.com"
+      ],
+      "fallback_search": "文化新闻 书评 艺术 culture arts books reviews"
+    },
+    "体育": {
+      "direct_feeds": [
+        "https://www.espn.com/espn/rss/news",
+        "http://feeds.bbci.co.uk/sport/rss.xml"
+      ],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/weixin/sports_sina",
+        "https://rsshub.app/hupu/all"
+      ],
+      "prefer_domains": [
+        "espn.com",
+        "bbc.com",
+        "sports.sina.com.cn",
+        "hupu.com",
+        "dongqiudi.com",
+        "skysports.com",
+        "theathletic.com"
+      ],
+      "fallback_search": "体育新闻 赛事 sports news today scores results"
+    },
+    "娱乐": {
+      "_note": "覆盖游戏、电影、音乐、电视剧。机核和触乐侧重游戏，游研社侧重游戏文化，虹膜侧重电影。",
+      "direct_feeds": [
+        "https://www.gcores.com/rss",
+        "http://www.chuapp.com/feed",
+        "https://www.yystv.cn/rss/feed"
+      ],
+      "discovery_feeds": [
+        "https://plink.anyfeeder.com/weixin/IrisMagazine",
+        "https://plink.anyfeeder.com/weixin/vistaweek"
+      ],
+      "prefer_domains": [
+        "gcores.com",
+        "chuapp.com",
+        "yystv.cn",
+        "douban.com",
+        "thepaper.cn",
+        "theguardian.com",
+        "variety.com",
+        "hollywoodreporter.com",
+        "pitchfork.com",
+        "billboard.com"
+      ],
+      "fallback_search": "娱乐新闻 电影 音乐 游戏 电视剧 entertainment film music gaming"
+    }
+  },
+  "output": {
+    "directory": "News",
+    "items_per_section": 5,
+    "min_items": 2
+  }
+}
