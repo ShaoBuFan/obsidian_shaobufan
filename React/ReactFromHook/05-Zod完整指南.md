@@ -47,7 +47,7 @@ const UserSchema = z.object({ name: z.string(), age: z.number() });
 type User = z.infer<typeof UserSchema>; // 自动推导，不用写第二遍
 ```
 
-> Zod 的核心理念是 ==Single Source of Truth（单一真相来源）==：你定义一次 schema，同时得到 TypeScript 类型和运行时校验——不需要在两个地方维护两套东西。关于这个原则的深入讨论，见 [附录](10-附录-常见问题.md#drysostsoc)。
+> Zod 的核心理念是 ==Single Source of Truth（单一真相来源）==：你定义一次 schema，同时得到 TypeScript 类型和运行时校验——不需要在两个地方维护两套东西。关于这个原则的深入讨论，见 [附录](10-附录-常见问题.md#a6-drysostsoc-三者怎么配合)。
 
 ---
 

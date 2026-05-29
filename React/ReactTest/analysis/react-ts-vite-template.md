@@ -1,3 +1,12 @@
+---
+tags:
+  - React
+  - TypeScript
+  - Vite
+  - 分析
+created: 2026-05-22
+---
+
 # 项目分析: react-ts-vite-template
 
 > GitHub: [SalahAdDin/react-ts-vite-template](https://github.com/SalahAdDin/react-ts-vite-template)  

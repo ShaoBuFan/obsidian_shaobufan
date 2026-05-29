@@ -1,3 +1,12 @@
+---
+tags:
+  - 测试/MSW
+  - 测试/Vitest
+  - React
+  - 分析
+created: 2026-05-22
+---
+
 # MSW + Vitest 官方示例分析
 
 分析对象：

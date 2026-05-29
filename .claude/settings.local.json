@@ -63,7 +63,13 @@
       "WebFetch(domain:www.wired.com)",
       "WebFetch(domain:www.espn.com)",
       "WebFetch(domain:www.theatlantic.com)",
-      "WebFetch(domain:variety.com)"
+      "WebFetch(domain:variety.com)",
+      "Bash(claude --version)",
+      "Bash(claude version *)",
+      "Bash(claude update *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ]
   }
 }

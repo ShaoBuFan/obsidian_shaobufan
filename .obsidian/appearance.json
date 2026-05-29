@@ -9,5 +9,5 @@
   "interfaceFontFamily": "Consolas",
   "monospaceFontFamily": "Consolas",
   "baseFontSize": 18,
-  "showRibbon": true
+  "showRibbon": false
 }

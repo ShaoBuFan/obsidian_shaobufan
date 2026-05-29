@@ -1,3 +1,10 @@
+---
+tags:
+  - 测试/Vitest
+  - 分析
+created: 2026-05-22
+---
+
 # Vitest Monorepo Examples 分析报告
 
 > 分析日期：2026-05-22

@@ -1,3 +1,12 @@
+---
+tags:
+  - React
+  - 测试/Vitest
+  - 测试/RTL
+  - 分析
+created: 2026-05-22
+---
+
 # EpicWeb React Component Testing with Vitest — Workshop Analysis
 
 > Workshop: https://www.epicweb.dev/workshops/react-component-testing-with-vitest
